@@ -35,6 +35,12 @@ private slots:
 
     void on_Archive_clicked();
 
+    void DeleteElements(QVector<int> indexes, QString filename);
+
+    void on_Delete_clicked();
+
+    void on_Dearchivate_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

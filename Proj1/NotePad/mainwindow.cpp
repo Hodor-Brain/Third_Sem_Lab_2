@@ -16,7 +16,7 @@ struct Note
     QString CurNote;
     QDateTime CurData = QDateTime::currentDateTime();
     int ID = -1;
-    bool IsArchieved = false;
+    bool IsArchived = false;
 };
 
 
@@ -91,7 +91,7 @@ void FileWriting(QString filename, Note note)
     out << note.CurData;
     out << note.CurNote;
     out << note.ID;
-    out << note.IsArchieved;
+    out << note.IsArchived;
 
     file.close();
 }
@@ -111,9 +111,9 @@ void FileReading(QString filename, QVector<Note> &notes, bool isArch)
         in >> n.CurData;
         in >> n.CurNote;
         in >> n.ID;
-        in >> n.IsArchieved;
+        in >> n.IsArchived;
 
-        if (n.IsArchieved == false || isArch)
+        if (n.IsArchived == false || isArch)
         {
             notes.push_back(n);
         }
@@ -137,7 +137,7 @@ int LastIndex(QString filename)
         in >> n.CurData;
         in >> n.CurNote;
         in >> n.ID;
-        in >> n.IsArchieved;
+        in >> n.IsArchived;
     }
 
     file.close();
@@ -148,7 +148,7 @@ int LastIndex(QString filename)
 
 void MainWindow::on_pushButton_clicked()
 {
-    ui->Table->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    //ui->Table->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
     Note note;
 
@@ -201,13 +201,18 @@ void MainWindow::on_Table_cellDoubleClicked(int row, int column)
 
 void MainWindow::on_DeleteAll_clicked()
 {
-    QFile file(FILENAME);
-    file.open(QIODevice::WriteOnly);
-    file.close();
-
-    QFile file1(ARCHIVE);
-    file1.open(QIODevice::WriteOnly);
-    file1.close();
+    if (ui->Title2->text() == "Notes List")
+    {
+        QFile file(FILENAME);
+        file.open(QIODevice::WriteOnly);
+        file.close();
+    }
+    else if (ui->Title2->text() == "Archive List")
+    {
+        QFile file1(ARCHIVE);
+        file1.open(QIODevice::WriteOnly);
+        file1.close();
+    }
 
     for (int i = ui->Table->rowCount(); i >= 0 ; i--)
     {
@@ -218,8 +223,6 @@ void MainWindow::on_DeleteAll_clicked()
 
 void MainWindow::AddToArchive(QVector<int> indexes)
 {
-    int last = LastIndex(FILENAME);
-
     long long pos;
 
     QFile file(FILENAME);
@@ -240,7 +243,7 @@ void MainWindow::AddToArchive(QVector<int> indexes)
         in >> temp.CurData;
         in >> temp.CurNote;
         in >> temp.ID;
-        in >> temp.IsArchieved;
+        in >> temp.IsArchived;
 
         for (int i = 0; i < indexes.length(); i++)
         {
@@ -255,17 +258,17 @@ void MainWindow::AddToArchive(QVector<int> indexes)
             {
                 file.seek(pos);
 
-                temp.IsArchieved = true;
+                temp.IsArchived = true;
 
                 in << temp.CurData;
                 in << temp.CurNote;
                 in << temp.ID;
-                in << temp.IsArchieved;
+                in << temp.IsArchived;
 
                 inn << temp.CurData;
                 inn << temp.CurNote;
                 inn << temp.ID;
-                inn << temp.IsArchieved;
+                inn << temp.IsArchived;
 
                 break;
             }
@@ -301,10 +304,10 @@ void MainWindow::on_Archivator_clicked()
 
     std::sort(indexes.begin(), indexes.end());
 
-    for (int i = 0; i < indexes.length(); i++)
+    /*for (int i = 0; i < indexes.length(); i++)
     {
         qDebug() << indexes[i];
-    }
+    }*/
 
     AddToArchive(indexes);
 
@@ -317,6 +320,9 @@ void MainWindow::on_Archivator_clicked()
 
 void MainWindow::on_Notes_clicked()
 {
+    ui->Title2->clear();
+    ui->Title2->insert("Notes List");
+
     int count = ui->Table->rowCount();
 
     for (int i = count - 1; i >= 0; i--)
@@ -329,6 +335,9 @@ void MainWindow::on_Notes_clicked()
 
 void MainWindow::on_Archive_clicked()
 {
+    ui->Title2->clear();
+    ui->Title2->insert("Archive List");
+
     int count = ui->Table->rowCount();
 
     for (int i = count - 1; i >= 0; i--)
@@ -338,3 +347,104 @@ void MainWindow::on_Archive_clicked()
 
     ArchiveReading();
 }
+
+
+
+void MainWindow::DeleteElements(QVector<int> indexes, QString filename)
+{
+    QFile file(filename);
+    QFile newfile("TEMP");
+
+    newfile.open(QIODevice::WriteOnly);
+    file.open(QIODevice::ReadWrite);
+
+    Note temp;
+
+    bool isDel = false;
+
+    QDataStream in(&newfile);
+    QDataStream out(&file);
+
+    while (!out.atEnd())
+    {
+        out >> temp.CurData;
+        out >> temp.CurNote;
+        out >> temp.ID;
+        out >> temp.IsArchived;
+
+        for (int i = 0; i < indexes.length(); i++)
+        {
+            QTableWidgetItem* q;
+            q = ui->Table->item(indexes[i], 0);
+
+            QString str;
+
+            str = q->text();
+
+            if (temp.CurData.toString() == str)
+            {
+                isDel = true;
+                break;
+            }
+        }
+
+        if (!isDel)
+        {
+            in << temp.CurData;
+            in << temp.CurNote;
+            in << temp.ID;
+            in << temp.IsArchived;
+        }
+
+        isDel = false;
+    }
+
+    file.close();
+    newfile.close();
+
+    remove(filename.toStdString().c_str());
+    rename("TEMP", filename.toStdString().c_str());
+}
+
+
+void MainWindow::on_Delete_clicked()
+{
+    QString filename;
+
+    if (ui->Title2->text() == "Notes List")
+        filename = FILENAME;
+    else
+        filename = ARCHIVE;
+
+    QModelIndexList selection = ui->Table->selectionModel()->selectedRows();
+
+    QVector<int> indexes;
+
+    for(int i = 0; i < selection.count(); i++)
+    {
+        QModelIndex index = selection.at(i);
+        indexes.push_back(index.row());
+    }
+
+    std::sort(indexes.begin(), indexes.end());
+
+    DeleteElements(indexes, filename);
+
+    for(int i = indexes.length() - 1; i >= 0; i--)
+    {
+        ui->Table->removeRow(indexes[i]);
+    }
+}
+
+void MainWindow::on_Dearchivate_clicked()
+{
+    if (ui->Title2->text() == "Notes List")
+        return;
+
+
+}
+
+
+
+
+
