@@ -40,97 +40,10 @@
      <string>Save</string>
     </property>
    </widget>
-   <widget class="QTableWidget" name="Table">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>50</y>
-      <width>600</width>
-      <height>511</height>
-     </rect>
-    </property>
-    <property name="sizeAdjustPolicy">
-     <enum>QAbstractScrollArea::AdjustIgnored</enum>
-    </property>
-    <property name="selectionBehavior">
-     <enum>QAbstractItemView::SelectRows</enum>
-    </property>
-    <attribute name="horizontalHeaderCascadingSectionResizes">
-     <bool>true</bool>
-    </attribute>
-    <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>180</number>
-    </attribute>
-    <attribute name="horizontalHeaderStretchLastSection">
-     <bool>true</bool>
-    </attribute>
-    <column>
-     <property name="text">
-      <string>Data</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Note</string>
-     </property>
-    </column>
-   </widget>
-   <widget class="QPushButton" name="DeleteAll">
-    <property name="geometry">
-     <rect>
-      <x>1150</x>
-      <y>560</y>
-      <width>100</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Delete All</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="Archivator">
-    <property name="geometry">
-     <rect>
-      <x>950</x>
-      <y>560</y>
-      <width>100</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>AddToArchive</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="Archive">
-    <property name="geometry">
-     <rect>
-      <x>750</x>
-      <y>560</y>
-      <width>100</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Archive</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="Notes">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>560</y>
-      <width>100</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Notes</string>
-    </property>
-   </widget>
    <widget class="Line" name="line">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>19</x>
       <y>490</y>
       <width>591</width>
       <height>15</height>
@@ -228,7 +141,7 @@
       <x>620</x>
       <y>30</y>
       <width>20</width>
-      <height>580</height>
+      <height>600</height>
      </rect>
     </property>
     <property name="orientation">
@@ -239,7 +152,7 @@
     <property name="geometry">
      <rect>
       <x>630</x>
-      <y>600</y>
+      <y>620</y>
       <width>640</width>
       <height>20</height>
      </rect>
@@ -277,7 +190,7 @@
       <x>1260</x>
       <y>30</y>
       <width>20</width>
-      <height>580</height>
+      <height>600</height>
      </rect>
     </property>
     <property name="orientation">
@@ -330,11 +243,240 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>440</y>
+      <width>75</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Work</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Bussiness</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Training</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Home</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>40</y>
+      <width>600</width>
+      <height>541</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>3</number>
+    </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Work</string>
+     </attribute>
+     <widget class="QTableWidget" name="Table">
+      <property name="geometry">
+       <rect>
+        <x>1</x>
+        <y>0</y>
+        <width>592</width>
+        <height>511</height>
+       </rect>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustIgnored</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>180</number>
+      </attribute>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>true</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Data</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Note</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Bussiness</string>
+     </attribute>
+     <widget class="QTableWidget" name="Table_2">
+      <property name="geometry">
+       <rect>
+        <x>1</x>
+        <y>0</y>
+        <width>592</width>
+        <height>511</height>
+       </rect>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustIgnored</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>180</number>
+      </attribute>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>true</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Data</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Note</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_3">
+     <attribute name="title">
+      <string>Training</string>
+     </attribute>
+     <widget class="QTableWidget" name="Table_3">
+      <property name="geometry">
+       <rect>
+        <x>1</x>
+        <y>0</y>
+        <width>592</width>
+        <height>511</height>
+       </rect>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustIgnored</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>180</number>
+      </attribute>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>true</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Data</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Note</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_4">
+     <attribute name="title">
+      <string>Home</string>
+     </attribute>
+     <widget class="QTableWidget" name="Table_4">
+      <property name="geometry">
+       <rect>
+        <x>1</x>
+        <y>0</y>
+        <width>592</width>
+        <height>511</height>
+       </rect>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustIgnored</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>180</number>
+      </attribute>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>true</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Data</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Note</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="DeleteAll">
+    <property name="geometry">
+     <rect>
+      <x>1150</x>
+      <y>580</y>
+      <width>100</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete All</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Dearchivate">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>580</y>
+      <width>100</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Dearchivate</string>
+    </property>
+   </widget>
    <widget class="QPushButton" name="Delete">
     <property name="geometry">
      <rect>
       <x>1050</x>
-      <y>560</y>
+      <y>580</y>
       <width>100</width>
       <height>28</height>
      </rect>
@@ -343,17 +485,43 @@
      <string>Delete</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="Dearchivate">
+   <widget class="QPushButton" name="Archive">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>560</y>
+      <x>750</x>
+      <y>580</y>
       <width>100</width>
       <height>28</height>
      </rect>
     </property>
     <property name="text">
-     <string>Dearchivate</string>
+     <string>Archive</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Archivator">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>580</y>
+      <width>100</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>AddToArchive</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Notes">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>580</y>
+      <width>100</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Notes</string>
     </property>
    </widget>
   </widget>
